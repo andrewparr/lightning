@@ -61,7 +61,6 @@ uint8_t Maze::getUDLR(unsigned x, unsigned y) const {
 }
 
 void Maze::start_solve() {
-    //visited_.resize(width_ * height_);
     visited_.assign(width_ * height_, 0);
     queue_.clear();
 
