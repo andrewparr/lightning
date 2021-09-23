@@ -45,16 +45,16 @@ uint8_t Maze::getUDLR(unsigned x, unsigned y) const {
 
     uint8_t ret = 0;
     if (!h_walls_[(y * width_) + x]) {
-        ret |= 0x01;
+        ret |= UP;
     }
     if (!h_walls_[((y+1) * width_) + x]) {
-        ret |= 0x02;
+        ret |= DOWN;
     }
     if (!v_walls_[(y * (width_ + 1)) + x]) {
-        ret |= 0x04;
+        ret |= LEFT;
     }
     if (!v_walls_[(y * (width_ + 1)) + x + 1]) {
-        ret |= 0x08;
+        ret |= RIGHT;
     }
        
     return ret;
@@ -83,7 +83,7 @@ std::tuple<bool, unsigned, unsigned> Maze::solve_step() {
     }
 
     uint8_t moves = getUDLR(xy.first, xy.second);
-    if (xy.second > 0 && (moves & 0x01)) {
+    if (xy.second > 0 && (moves & UP)) {
         // can go up
         auto new_xy = std::make_pair(xy.first, xy.second-1);
         if (visited_[(width_ * new_xy.second) + new_xy.first] == 0) {
@@ -91,7 +91,7 @@ std::tuple<bool, unsigned, unsigned> Maze::solve_step() {
             queue_.push_back(new_xy);
         }
     }
-    if ((moves & 0x02)) {
+    if ((moves & DOWN)) {
         // can go down
         auto new_xy = std::make_pair(xy.first, xy.second+1);
         if (visited_[(width_ * new_xy.second) + new_xy.first] == 0) {
@@ -99,7 +99,7 @@ std::tuple<bool, unsigned, unsigned> Maze::solve_step() {
             queue_.push_back(new_xy);
         }
     }
-    if (xy.first > 0 && ((moves & 0x04))) {
+    if (xy.first > 0 && ((moves & LEFT))) {
         // can go left
         auto new_xy = std::make_pair(xy.first-1, xy.second);
         if (visited_[(width_ * new_xy.second) + new_xy.first] == 0) {
@@ -107,7 +107,7 @@ std::tuple<bool, unsigned, unsigned> Maze::solve_step() {
             queue_.push_back(new_xy);
         }
     }
-    if (xy.first < (width_ - 1) && ((moves & 0x08))) {
+    if (xy.first < (width_ - 1) && ((moves & RIGHT))) {
         // can go right
         auto new_xy = std::make_pair(xy.first+1, xy.second);
         if (visited_[(width_ * new_xy.second) + new_xy.first] == 0) {

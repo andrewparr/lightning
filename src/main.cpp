@@ -53,17 +53,13 @@ int main(int argc, char *argv[]) {
     draw_maze(maze);
 
     maze.start_solve();
-    bool solved = false;
-    unsigned x, y;
     size_t n = 1;
     std::list<std::pair<unsigned, unsigned>> my_list;
 
+    std::tuple<bool, unsigned, unsigned> step{false, 0, 0};
+    auto& [solved, x, y] = step;
     while (!solved) {
-        auto [s, _x, _y] = maze.solve_step();
-        solved = s;
-        x = _x;
-        y = _y;
-
+        step = maze.solve_step();
         if (--n == 0) {
             n = maze.queueSize();
             if (n == 0)

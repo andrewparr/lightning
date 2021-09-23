@@ -14,6 +14,10 @@ public:
 
     // get possible moves from (x,y) returns bit map: up, down, left, right moves
     uint8_t getUDLR(unsigned x, unsigned y) const;
+    static constexpr unsigned UP    = 0x01;
+    static constexpr unsigned DOWN  = 0x02;
+    static constexpr unsigned LEFT  = 0x04;
+    static constexpr unsigned RIGHT = 0x08;
 
     void start_solve();
     std::tuple<bool, unsigned, unsigned> solve_step();
