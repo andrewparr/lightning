@@ -79,7 +79,7 @@ int main(int argc, char *argv[]) {
         my_list.emplace_back(y, x);
     }
     if (solved) {
-        // annimate lightening
+        // annimate lightning
         std::vector<std::pair<unsigned, unsigned>> path;
         auto a = std::back_inserter(path);
         maze.back_track(x, y, a);
